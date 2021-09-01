@@ -10,7 +10,6 @@ DATA_DIR := $(this_makefile_dir)/data
 LOGFILE := $(this_makefile_dir)/postgres.log
 INITDB_CMD := $(PG_BIN_DIR)/initdb
 PGCTL_CMD := $(PG_BIN_DIR)/pg_ctl
-PGPORT := 5432
 
 printenv: ## Print environment
 	@echo "PGVERSION = $(PGVERSION)"
@@ -35,10 +34,13 @@ data: # Initialize the database cluster
 	# usermod --groups postgres luis
 
 start: ## Start postgres service
-start: data /var/run/postgresql/.s.PGSQL.$(PGPORT)
+start: | data $(DATA_DIR)/postmaster.pid
 
-stop: ## stop postgres service
-	"$(PGCTL_CMD)" -D "$(DATA_DIR)" -l "$(LOGFILE)" stop
+stop: ## Stop postgres service
+stop:
+	if test -f "$(DATA_DIR)/postmaster.pid"; then \
+		"$(PGCTL_CMD)" -D "$(DATA_DIR)" -l "$(LOGFILE)" stop ; \
+	fi
 
-/var/run/postgresql/.s.PGSQL.$(PGPORT):
+$(DATA_DIR)/postmaster.pid:
 	"$(PGCTL_CMD)" -D "$(DATA_DIR)" -l "$(LOGFILE)" start
