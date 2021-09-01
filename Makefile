@@ -25,6 +25,9 @@ clean: stop
 	rm -rf "${DATA_DIR}" "${LOGFILE}"
 
 init: ## Setup
+init: data
+
+data: # Initialize the database cluster
 	mkdir "$(DATA_DIR)"
 	"$(INITDB_CMD)" "$(DATA_DIR)"
 
@@ -32,7 +35,7 @@ init: ## Setup
 	# usermod --groups postgres luis
 
 start: ## Start postgres service
-start: /var/run/postgresql/.s.PGSQL.$(PGPORT)
+start: data /var/run/postgresql/.s.PGSQL.$(PGPORT)
 
 stop: ## stop postgres service
 	"$(PGCTL_CMD)" -D "$(DATA_DIR)" -l "$(LOGFILE)" stop
