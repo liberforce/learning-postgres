@@ -25,7 +25,7 @@ clean: stop
 	rm -rf "${DATA_DIR}" "${LOGFILE}"
 
 init: ## Setup
-init: data
+init: | data
 
 data: # Initialize the database cluster
 	mkdir "$(DATA_DIR)"
