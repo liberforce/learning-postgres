@@ -1,4 +1,4 @@
-.PHONY: clean init start stop
+.PHONY: printenv clean init start stop
 
 # From https://stackoverflow.com/a/18137056/518853
 makefile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
