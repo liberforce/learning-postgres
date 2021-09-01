@@ -4,12 +4,12 @@
 makefile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 this_makefile_dir := $(patsubst %/,%,$(dir $(makefile_path)))
 
-PGVERSION=12
-PG_BIN_DIR=/usr/lib/postgresql/${PGVERSION}/bin
-DATA_DIR=$(this_makefile_dir)/data
-LOGFILE=$(this_makefile_dir)/postgres.log
-INITDB_CMD=$(PG_BIN_DIR)/initdb
-PGCTL_CMD=$(PG_BIN_DIR)/pg_ctl
+PGVERSION := 12
+PG_BIN_DIR := /usr/lib/postgresql/${PGVERSION}/bin
+DATA_DIR := $(this_makefile_dir)/data
+LOGFILE := $(this_makefile_dir)/postgres.log
+INITDB_CMD := $(PG_BIN_DIR)/initdb
+PGCTL_CMD := $(PG_BIN_DIR)/pg_ctl
 
 printenv: ## Print environment
 	@echo "PGVERSION = $(PGVERSION)"
