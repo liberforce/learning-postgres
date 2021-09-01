@@ -10,6 +10,7 @@ DATA_DIR := $(this_makefile_dir)/data
 LOGFILE := $(this_makefile_dir)/postgres.log
 INITDB_CMD := $(PG_BIN_DIR)/initdb
 PGCTL_CMD := $(PG_BIN_DIR)/pg_ctl
+PGPORT := 5432
 
 printenv: ## Print environment
 	@echo "PGVERSION = $(PGVERSION)"
@@ -30,7 +31,10 @@ init: ## Setup
 	# usermod --groups postgres luis
 
 start: ## Start postgres service
-	"$(PGCTL_CMD)" -D "$(DATA_DIR)" -l "$(LOGFILE)" start
+start: /var/run/postgresql/.s.PGSQL.$(PGPORT)
 
 stop: ## stop postgres service
 	"$(PGCTL_CMD)" -D "$(DATA_DIR)" -l "$(LOGFILE)" stop
+
+/var/run/postgresql/.s.PGSQL.$(PGPORT):
+	"$(PGCTL_CMD)" -D "$(DATA_DIR)" -l "$(LOGFILE)" start
