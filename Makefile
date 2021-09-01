@@ -21,6 +21,7 @@ printenv: ## Print environment
 	@echo "PGCTL_CMD = $(PGCTL_CMD)"
 
 clean: ## Cleanup
+clean: stop
 	rm -rf "${DATA_DIR}" "${LOGFILE}"
 
 init: ## Setup
