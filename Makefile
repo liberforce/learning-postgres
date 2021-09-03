@@ -28,7 +28,7 @@ init: | data
 
 data: # Initialize the database cluster
 	mkdir "$(DATA_DIR)"
-	"$(INITDB_CMD)" --pgdata "$(DATA_DIR)"
+	"$(INITDB_CMD)" --username postgres --pgdata "$(DATA_DIR)"
 
 	# Add me to the postgres group to be able to run the server
 	# usermod --append --groups postgres "${USER}"
