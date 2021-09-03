@@ -31,7 +31,7 @@ data: # Initialize the database cluster
 	"$(INITDB_CMD)" "$(DATA_DIR)"
 
 	# Add me to the postgres group to be able to run the server
-	# usermod --groups postgres luis
+	# usermod --append --groups postgres "${USER}"
 
 start: ## Start postgres service
 start: | data $(DATA_DIR)/postmaster.pid
