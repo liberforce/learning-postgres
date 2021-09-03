@@ -74,8 +74,6 @@ restore: start
 	"$(PG_RESTORE_CMD)"                              \
 		--username "$(MAINTENANCE_USER)"         \
 		--dbname "$(PROJECT_NAME)"               \
-		--clean                                  \
-		--if-exists                              \
 		--verbose                                \
 		"$(PROJECT_NAME).tar"
 
