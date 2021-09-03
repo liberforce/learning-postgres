@@ -1,4 +1,4 @@
-.PHONY: printenv clean init start stop restore
+.PHONY: printenv clean init start stop restore psql
 
 # From https://stackoverflow.com/a/18137056/518853
 makefile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
@@ -14,6 +14,7 @@ PGCTL_CMD := $(PG_BIN_DIR)/pg_ctl
 PG_RESTORE_CMD := $(PG_BIN_DIR)/pg_restore
 CREATEDB_CMD := /usr/bin/createdb
 DROPDB_CMD := /usr/bin/dropdb
+PSQL_CMD := /usr/bin/psql
 MAINTENANCE_DB := postgres
 MAINTENANCE_USER := postgres
 
@@ -79,3 +80,6 @@ restore: start
 
 $(DATA_DIR)/postmaster.pid:
 	"$(PGCTL_CMD)" --pgdata "$(DATA_DIR)" -l "$(LOGFILE)" start
+
+psql: ## Get a psql shell
+	"$(PSQL_CMD)" --username "$(MAINTENANCE_USER)" --dbname "$(PROJECT_NAME)"
