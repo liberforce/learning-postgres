@@ -55,7 +55,9 @@ stop:
 
 restore: ## Restores the database
 restore: start
-	# Make sure the db to restore already exists by the time we call pg_restore
+	# Make sure the db to restore into already exists by the time we call pg_restore
+	# because we need it to exist to use the system locales. This avoids a
+	# locale error when restoring.
 	"$(DROPDB_CMD)" --username "$(MAINTENANCE_USER)" --if-exists "$(PROJECT_NAME)"
 	"$(CREATEDB_CMD)" --username "$(MAINTENANCE_USER)" "$(PROJECT_NAME)"
 
