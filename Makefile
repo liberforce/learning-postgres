@@ -28,7 +28,7 @@ init: | data
 
 data: # Initialize the database cluster
 	mkdir "$(DATA_DIR)"
-	"$(INITDB_CMD)" "$(DATA_DIR)"
+	"$(INITDB_CMD)" --pgdata "$(DATA_DIR)"
 
 	# Add me to the postgres group to be able to run the server
 	# usermod --append --groups postgres "${USER}"
@@ -39,8 +39,8 @@ start: | data $(DATA_DIR)/postmaster.pid
 stop: ## Stop postgres service
 stop:
 	if test -f "$(DATA_DIR)/postmaster.pid"; then \
-		"$(PGCTL_CMD)" -D "$(DATA_DIR)" -l "$(LOGFILE)" stop ; \
+		"$(PGCTL_CMD)" --pgdata "$(DATA_DIR)" -l "$(LOGFILE)" stop ; \
 	fi
 
 $(DATA_DIR)/postmaster.pid:
-	"$(PGCTL_CMD)" -D "$(DATA_DIR)" -l "$(LOGFILE)" start
+	"$(PGCTL_CMD)" --pgdata "$(DATA_DIR)" -l "$(LOGFILE)" start
