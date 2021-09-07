@@ -66,7 +66,7 @@ restore: start
 	# to be able to run the actual SQL commands that create or clean the database
 	# Any database we know for sure exists will do the trick.
 	#
-	# WARNING: when --create or --clean are specified, dbname is the name of the
+	# WARNING: when --create is specified, dbname is the name of the
 	# maintenance db we connect to. This gives us a connection to clean or create
 	# the target database into which we will restore the data.
 	# But when these parameters are not specified, the semantics of the dbname
